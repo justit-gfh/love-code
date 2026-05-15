@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>满屏飘字</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const texts = [
+            "罗慧我想你了",
+            "我已深深爱上你",
+            "每天都要元气满满",
+            "把你所有的烦恼都消灭",
+            "天冷了，多穿衣服",
+            "多喝热水哦",
+            "早点休息",
+            "烦人的感冒快走开",
+            "这么可爱不要不开心哦",
+            "珍惜当下",
+            "照顾好自己",
+            "我喜欢你，罗慧",
+            "要开心呀",
+            "罗慧超可爱",
+            "加油"
+        ];
+
+        const colors = [
+            "red",
+            "pink",
+            "lightblue",
+            "lightgreen",
+            "lavender",
+            "coral",
+            "bisque",
+            "aquamarine",
+            "plum",
+            "gold"
+        ];
+
+        const createText = () => {
+            const text = document.createElement('div');
+            const textContent = texts[Math.floor(Math.random() * texts.length)];
+            text.innerText = textContent;
+            text.style.color = colors[Math.floor(Math.random() * colors.length)];
+            text.style.fontSize = `${16 + Math.random() * 14}px`;
+            text.style.position = 'absolute';
+            text.style.left = `${Math.random() * 100}%`;
+            text.style.top = '-20px';
+            text.style.animation = `float ${5 + Math.random() * 5}s linear infinite`;
+            document.body.appendChild(text);
+
+            // 动画结束后移除元素
+            setTimeout(() => {
+                text.remove();
+            }, (5 + Math.random() * 5) * 1000);
+        };
+
+        // 定义动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 每隔一段时间创建新的文字
+        setInterval(createText, 300);
+    </script>
+</body>
+</html>
